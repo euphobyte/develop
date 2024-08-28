@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Outline</title>
+<link rel="stylesheet" href="">
+<script src=""></script>
+<script>
+function init(){
+;}
+</script>
+<style>
+body{
+  display: flex;
+  background-color: #f88;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font: normal 9pt Segoe UI;
+}
+#outer{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 8px;
+}
+#center{
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+#top{background-color: #88f;padding: 8px;}
+#status{background-color: #aaf;padding: 8px;}
+#lcenter{background-color: #ff8;padding: 8px;}
+#rcenter{background-color: #f8f;flex:1;padding: 8px;}
+</style>
+</head>
+<body onload="init()">
+<div id="outer">
+<div id="top">top</div>
+<div id="center">
+<div id="lcenter">lcenter</div><div id="rcenter">rcenter</div>
+</div><!-- center -->
+<div id="status">status</div>
+</div><!-- outer -->
+</body>
+</html>
