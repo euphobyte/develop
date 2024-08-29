@@ -9,7 +9,7 @@ function init(){
  document.getElementById("inp2").value = localStorage.getItem("user1");
 }
 function generate(){
-  if( document.getElementById("inp2").value != "8f88dca5-ac81-496f-b259-5932439f8f96")
+  if( document.getElementById("inp2").value != "dbbc7d8f-2959-476b-ad3b-47a096ec9fe4")
     return;
   var se = document.createElement('script');
   var tx1 = document.getElementById("txt1").value;
@@ -78,7 +78,7 @@ input{outline:none;margin:8px;}
 <input id="inp1" type="text" size="32"></input><br>
 <button onClick="save()">Save</button><br>
 <label>User:</label>
-<input id="inp2" type="text" size="32"></input>
+<input id="inp2" type="text" size="32" readonly="readonly"></input>
 </div>
 </div> <!-- center -->
 <div id="status">status</div>
