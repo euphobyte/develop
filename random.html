@@ -19,11 +19,13 @@ function generate(){
   test2();
   document.getElementsByTagName('head').item(0).removeChild(se);
 }
-
 function test(){
   let uuid = self.crypto.randomUUID();
   document.getElementById("inp1").value = uuid; 
   alert(test.toString());
+}
+function genScript(){
+  document.getElementById("txt1").value="function test2(){\r\n  alert('Hello Word!');\r\n}";
 }
 function save(){
   localStorage.setItem("user1",document.getElementById("inp1").value);
@@ -67,7 +69,8 @@ input{outline:none;margin:8px;}
 <div id="center">
 <div id="lcenter">
 <button onClick="generate();">Generate</button><br>
-<button onClick="test();">Test</button>
+<button onClick="test()">Test UUID</button><br>
+<button onClick="genScript()">Test Script</button>
 </div> <!-- lcenter -->
 <div id="ccenter">
 <canvas id="canv1"></canvas><br>
