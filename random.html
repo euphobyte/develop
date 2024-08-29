@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Random Pixels</title>
+<link rel="stylesheet" href="">
+<script src=""></script>
+<script>
+function init(){
+ document.getElementById("inp2").value = localStorage.getItem("user1");
+}
+function generate(){
+  if( document.getElementById("inp2").value != "8f88dca5-ac81-496f-b259-5932439f8f96")
+    return;
+  var se = document.createElement('script');
+  var tx1 = document.getElementById("txt1").value;
+  se.setAttribute('type', 'text/javascript');
+  se.appendChild(document.createTextNode(tx1));
+  document.getElementsByTagName('head').item(0).appendChild(se);
+  test2();
+  document.getElementsByTagName('head').item(0).removeChild(se);
+}
+
+function test(){
+  let uuid = self.crypto.randomUUID();
+  document.getElementById("inp1").value = uuid; 
+  alert(test.toString());
+}
+function save(){
+  localStorage.setItem("user1",document.getElementById("inp1").value);
+}
+</script>
+<style>
+body{
+  display: flex;
+  background-color: #f88;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font: normal 9pt Segoe UI;
+}
+#outer{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 8px;
+}
+#center{
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+#top{background-color: #88f;padding: 8px;}
+#status{background-color: #aaf;padding: 8px;}
+#lcenter{background-color: #ff8;}
+#ccenter{background-color: #f8f;flex:1;padding: 8px;}
+#rcenter{background-color: #8ff;flex:1;padding: 8px}
+#lcenter button{width:150px;height:35px;border-radius:0;border: 1px solid grey;}
+#lcenter button:hover {background-color: grey;}
+#canv1{height:400px;width:400px;border:1px solid grey;background-color:#fff;}
+textarea{resize:none;outline:none;}
+input{outline:none;margin:8px;}
+</style>
+</head>
+<body onload="init()">
+<div id="outer">
+<div id="top">top</div>
+<div id="center">
+<div id="lcenter">
+<button onClick="generate();">Generate</button><br>
+<button onClick="test();">Test</button>
+</div> <!-- lcenter -->
+<div id="ccenter">
+<canvas id="canv1"></canvas><br>
+<textarea id="txt1" cols=80 rows=25></textarea>
+</div> <!-- ccenter-->
+<div id="rcenter">
+<label>UUID:</label>
+<input id="inp1" type="text" size="32"></input><br>
+<button onClick="save()">Save</button><br>
+<label>User:</label>
+<input id="inp2" type="text" size="32"></input>
+</div>
+</div> <!-- center -->
+<div id="status">status</div>
+</div><!-- outer -->
+</body>
+</html>
