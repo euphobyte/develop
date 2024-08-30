@@ -27,6 +27,7 @@ function test(){
   let uuid = self.crypto.randomUUID();
   document.getElementById("inp1").value = uuid; 
   alert(test.toString());
+  document.getElementById("sav1").disabled = false;
 }
 function genScript(){
   document.getElementById("txt1").value="function test2(){\r\n  alert('Hello Word!');\r\n}";
@@ -83,7 +84,7 @@ input{outline:none;margin:8px;}
 <div id="rcenter">
 <label>UUID:</label>
 <input id="inp1" type="text" size="32" readonly="readonly"></input><br>
-<button onClick="save()">Save</button><br>
+<button id="sav1" onclick="save()" disabled>Save</button><br>
 <label>User:</label>
 <input id="inp2" type="text" size="32" readonly="readonly"></input>
 </div>
