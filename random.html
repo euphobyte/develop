@@ -6,7 +6,11 @@
 <script src=""></script>
 <script>
 function init(){
- document.getElementById("inp2").value = localStorage.getItem("user1");
+  var cod1 = localStorage.getItem("user1");
+  if(cod1=="")
+    localStorage.setItem("user1", self.crypto.randomUUID());
+  else
+    document.getElementById("inp2").value = cod1;
 }
 function generate(){
   if( document.getElementById("inp2").value != "dbbc7d8f-2959-476b-ad3b-47a096ec9fe4")
@@ -78,7 +82,7 @@ input{outline:none;margin:8px;}
 </div> <!-- ccenter-->
 <div id="rcenter">
 <label>UUID:</label>
-<input id="inp1" type="text" size="32"></input><br>
+<input id="inp1" type="text" size="32" readonly="readonly"></input><br>
 <button onClick="save()">Save</button><br>
 <label>User:</label>
 <input id="inp2" type="text" size="32" readonly="readonly"></input>
