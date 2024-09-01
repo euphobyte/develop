@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Random Pixels</title>
 <link rel="stylesheet" href="">
 <script src=""></script>
 <script>
+var rx = 0;
+
 function init(){
   var cod1 = localStorage.getItem("user1");
   if(cod1=="")
@@ -30,10 +33,63 @@ function test(){
   document.getElementById("sav1").disabled = false;
 }
 function genScript(){
-  document.getElementById("txt1").value="function test2(){\r\n  alert('Hello Word!');\r\n}";
+  document.getElementById("txt1").value= `function test2(){
+  canvas = document.getElementById('canv1');
+  ctx = canvas.getContext('2d');
+  canvas.width = 400;
+  canvas.height = 400;
+  img = ctx.createImageData(canvas.width, canvas.height);
+  for(x=0;x<400;x++){
+    for(y=0;y<400;y++){
+      var index = (x + y * img.width) * 4;
+      img.data[index] = Math.floor(Math.random() * 256);
+      img.data[index + 1] = Math.floor(Math.random() * 256);
+      img.data[index + 2] = Math.floor(Math.random() * 256);
+      img.data[index + 3] = 255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+}`;
 }
 function save(){
   localStorage.setItem("user1",document.getElementById("inp1").value);
+}
+function randHex(){
+  rx = (Math.floor(Math.random(256) * 256));
+  document.getElementById("inp3").value = pad(rx,3) + "    " + pad(rx.toString(16),2) + "    " + getBinByte(rx);
+}
+function encHex(){
+  let hx = document.getElementById("inp4").value.charCodeAt(0);
+  document.getElementById("inp4").value = pad(hx,3) + "    " + pad(hx.toString(16),2) + "    " + getBinByte(hx);
+  hx = hx ^ rx;
+  document.getElementById("inp5").value = pad(hx,3) + "    " + pad(hx.toString(16),2) + "    " + getBinByte(hx);
+}
+function getBinByte(c){
+  let s = c.toString(2);
+  return "00000000".substr(0, 8 - s.length) + s;
+// parseInt(whiteHex, 16)
+}
+function getIP(){
+  fetch("https://ipv4.icanhazip.com/").then(v => v.text()).then(v => document.getElementById("inp6").value = v);
+}
+function pad(num, size){
+  var s = "000000000" + num;
+  return s.substr(s.length-size);
+}
+function scramble(){
+  var str = document.getElementById("txt1").value;
+  document.getElementById("inp7").value = str.length;
+  document.getElementById("inp8").value = btoa(new Array([65,66,67]));
+}
+function hello(){
+  document.getElementById("txt1").value= `function test2(){
+  alert("Hello World!");
+}`;
+}
+function tdecode(){
+  var str = document.getElementById("inp8").value;
+  var c = atob(str).split(','); 
+  alert(String.fromCharCode(c[0]));
 }
 </script>
 <style>
@@ -65,29 +121,51 @@ body{
 #lcenter button:hover {background-color: grey;}
 #canv1{height:400px;width:400px;border:1px solid grey;background-color:#fff;}
 textarea{resize:none;outline:none;}
-input{outline:none;margin:8px;}
+input{outline:none}
+#bindisp{display: grid;grid-template-columns: 80px 200px;gap:8px;margin: 4px}
+#inp1, #inp2, #inp6, #inp7, #inp8 {margin: 4px}
 </style>
-</head>
+<script type="text/javascript"></script></head>
 <body onload="init()">
 <div id="outer">
 <div id="top">top</div>
 <div id="center">
 <div id="lcenter">
-<button onClick="generate();">Generate</button><br>
-<button onClick="test()">Test UUID</button><br>
-<button onClick="genScript()">Test Script</button>
+<button onclick="generate();">Generate</button><br>
+<button onclick="test()">Test UUID</button><br>
+<button onclick="genScript()">Test Script</button><br>
+<button onclick="getIP()">IP address</button><br>
+<button onclick="randHex()">Random HEX</button><br>
+<button onclick="encHex()">Encode HEX</button><br>
+<button onclick="hello()">Test Hello</button><br>
+<button onclick="scramble()">Scramble</button><br>
 </div> <!-- lcenter -->
 <div id="ccenter">
 <canvas id="canv1"></canvas><br>
-<textarea id="txt1" cols=80 rows=25></textarea>
+<textarea id="txt1" cols="80" rows="25"></textarea>
 </div> <!-- ccenter-->
 <div id="rcenter">
 <label>UUID:</label>
-<input id="inp1" type="text" size="32" readonly="readonly"></input><br>
+<input id="inp1" type="text" size="32"><br>
 <button id="sav1" onclick="save()" disabled>Save</button><br>
 <label>User:</label>
-<input id="inp2" type="text" size="32" readonly="readonly"></input>
-</div>
+<input id="inp2" type="text" size="32" readonly="readonly"><br>
+<label>IP address:</label>
+<input id="inp6" type="text" readonly="readonly"><br>
+<div id="bindisp">
+<label>Randomize:</label>
+<input id="inp3" type="text" readonly="readonly">
+<label>Input:</label>
+<input id="inp4" type="text">
+<label>Output:</label>
+<input id="inp5" type="text">
+</div> <!-- bindisp -->
+<label>Length:</label>
+<input id="inp7" type="text" size="10" readonly="readonly"><br>
+<label>Key:</label><br>
+<textarea id="inp8" cols="80" rows="25" readonly="readonly"></textarea><br>
+<button onClick="tdecode()">Decode</button>
+</div> <!-- rcenter -->
 </div> <!-- center -->
 <div id="status">status</div>
 </div><!-- outer -->
